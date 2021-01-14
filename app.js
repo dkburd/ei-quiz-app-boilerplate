@@ -1,7 +1,3 @@
-/**
- * Example store structure
- */
-
 const store = {
   // 5 or more questions are required
   questions: [
@@ -96,16 +92,12 @@ const store = {
       ],
       correctAnswer: 'D: D'
     },
-
-
   ],
 
-
-  // quizStarted: false,
-  // questionNumber: 0,
-  // score: 0
+  quizStarted: false,
+  questionCount: 1,
+  score: 0
 };
-
 
 
 /**
@@ -127,68 +119,20 @@ const store = {
 
 // These functions return HTML templates
 
+
+
 //add the starting text and button on load
 $( document ).ready(function() {
-$(".container").append( 
- "<form id='js-quiz-start-form'>"+
-    "<p>"+
-    "Hello There! Welcome."+
-    "</p>"+
-    "<p>"+
-    "This quiz will test your knowledge of Groundhog's Day"+
-    "</p>"+
-    "<input type='submit' value='Start' aria-label='start'>"+
-    "</form>"
-);
+  
+  $(".container").append( 
+    "<form id='js-quiz-start-form'></form>"+
+    "<form id='answer-submit'></form>"
+   );
 
-// when quiz is started, add q, a's and submit button
-$(".container").append( 
- "<form id='js-quiz'class='hidden'>"+
- "<p>"+
-"Your Score is " + score + "</span>" + " out of 100" +
-
- "</p>"+
- "<p>"+
-"Question " + questionCount + "</span>"+ " of 9" +
- "</p>"+
-"<div class='question'>"+
-"<p>"+
-questionOne+
-"</p"+
-"</div>"+
-"<div class='answers'>"+
-
-"<ol class='answers-list'>"+
-"<li>"+
-"<input type='radio' name='answer' data-answer=answerA> <label for='answer'>"+
- answerA+
- "</label>"+
-
-"</li>"+
-"<li>"+
-"<input type='radio' name='answer' data-answer=answerB> <label for='answer'>"+
- answerB+
- "</label>"+
-"</li>"+
-"<li>"+
-"<input type='radio' name='answer' data-answer=answerC> <label for='answer'>"+
- answerC+
- "</label>"+
-"<li>"+
-"<input type='radio' name='answer' data-answer=answerD> <label for='answer'>"+
- answerD+
- "</label>"+
-
-"</ol>"+
-"</div>"+
-"<div id='answer-submit'>"+
-"<input type='submit' value='Submit' aria-label='submit answer'>"+
-"</div>"+
-"</form>"
-)
+  if(!store.quizStarted){
+    renderWelcome();
+  }
 })
-
-
 
 /********** RENDER FUNCTION(S) **********/
 
@@ -196,51 +140,103 @@ questionOne+
 
 //?????????????
 
-
-
-
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
 
 // start quiz
-$(function() {
+$(function startQuiz() {
   $("#js-quiz-start-form").submit(event => {
 //  stop the default form submission behavior
     event.preventDefault();
-    // alert("connected")
-  $("#js-quiz-start-form").toggleClass("hidden");
-  $("#js-quiz").toggleClass("hidden");
+    store.quizStarted=true;
+    update();
   })
 })
+
+
+
 //submit answer
-$(function() {
+$(function submitAnswer() {
   $("#answer-submit").submit(event => {
 //  stop the default form submission behavior
     event.preventDefault();
-// check if answer is correct
-// if yes update score
-//show correct answer
-//check if quiz is over/ no more questions 
-//if quiz is not over load next question and answer set, update question number    
-//else if quiz is over go to quiz results
-
+    const{ score, questions, quizStarted, questionCount} = store
+    const current = questions[questionCount-1]
+    const currentAnswer = questions[questionCount-1].correctAnswer
+    alert(currentAnswer);
+  // alert(`Correct Awnser: correctAnswer`);
+    store.questionCount = store.questionCount+1;
+update();
   })
 })
 
+// check if answer is correct
+
+// if yes update score
 
 
-// my stuff
+//check if quiz is over/ no more questions 
+//if quiz is not over load next question and answer set, update question number    
+  
+//else if quiz is over go to quiz results
 
-// this not working, set a variable to be the first question 
-// const questionOne = store.questions.questions.question[0];
 
-let gameOver = false;
-let score= 0;
-let questionCount=1;
-let questionOne=store.questions[0].question
-let answerA=store.questions[0].answers[0]
-let answerB=store.questions[0].answers[1]
-let answerC=store.questions[0].answers[2]
-let answerD=store.questions[0].answers[3]
+function renderWelcome(){
+  document.querySelector("#js-quiz-start-form").innerHTML = (
+    "<p>"+
+    "Hello There! Welcome."+
+    "</p>"+
+    "<p>"+
+    "This quiz will test your knowledge of Groundhog's Day"+
+    "</p>"+
+    "<input type='submit' value='Start' aria-label='start'>"
+  )
+}
 
+function renderQuestion (questionCount){
+  const{ score, questions, quizStarted} = store
+  const current = questions[questionCount-1]
+  if(quizStarted){
+    document.querySelector("#js-quiz-start-form").innerHTML = ""
+  }
+  
+  document.querySelector("#answer-submit").innerHTML = (
+    "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
+    "<p>"+ "Question " + questionCount + "</span>"+ " of 9" +"</p>"+
+    "<div class='question'>"+
+    "<p>"+current.question+"</p"+
+    "</div>"+
+    "<div class='answers'>"+
+    "<ol class='answers-list'>"+
+    "<li>"+
+    "<input type='radio' name='answer' data-answer=answerA required> <label for='answer'/>"+
+    current.answers[0]+
+    "</label>"+
+    "</li>"+
+    "<li>"+
+    "<input type='radio' name='answer' data-answer=answerB> <label for='answer'/>"+
+    current.answers[1]+
+    "</label>"+
+    "</li>"+
+    "<li>"+
+    "<input type='radio' name='answer' data-answer=answerC> <label for='answer'/>"+
+    current.answers[2]+
+    "</label>"+
+    "<li>"+
+    "<input type='radio' name='answer' data-answer=answerD> <label for='answer'/>"+
+    current.answers[3]+
+    "</label>"+
+    "</ol>"+
+    "</div>"+
+    "<div>"+
+    "<input type='submit' value='Submit' aria-label='submit answer'/>"+
+    "</div>"
+  )
+}
+
+function update() {
+  // console.log(store.questionCount, store.questions);
+  renderQuestion(store.questionCount);
+
+}
