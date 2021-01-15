@@ -12,10 +12,6 @@ body {
   font-size: 150%;
 }
 
-.hidden {
-  display: none;
-}
-
 ol {
   /* list-style-type: upper-alpha; */
   list-style-type: none;
