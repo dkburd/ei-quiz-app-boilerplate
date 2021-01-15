@@ -130,6 +130,17 @@ $(document).ready(function() {
 })
 
 
+//restart quiz
+$(function startQuiz() {
+  $("#js-results-form").submit(event => {
+    event.preventDefault();
+    store.score=0;
+    store.questionCount=1;
+    store.quizStarted=false;
+    renderWelcome();
+  })
+})
+
 // start quiz
 $(function startQuiz() {
   $("#js-quiz-start-form").submit(event => {
@@ -145,31 +156,28 @@ $(function submitAnswer() {
   $("#js-answer-submit-form").submit(event => {
 //  stop the default form submission behavior
     event.preventDefault();
-    const{score, questions, quizStarted, questionCount} = store
-    const current = questions[questionCount-1]
+    const{ questions, questionCount } = store
     const currentAnswer = questions[questionCount-1].correctAnswer
-    store.questionCount = store.questionCount+1;
     let userAnswer = $('input[name="answer"]:checked').val();
 
-    if(store.questionCount > questions.length){
-      
-      renderResults()
-    }
-
-    if(currentAnswer === userAnswer){
-    // if yes update score  
-      store.score+=10;    
-      alert("CORRECT")
+    if(currentAnswer === userAnswer){  
+      store.score+=10;
+      alert("CORRECT");
     }else{
-      alert(`CORRECT ANSWER IS ${(currentAnswer)}`)
+      alert(`CORRECT ANSWER IS ${(currentAnswer)}`);
     }
-    //if quiz not over render next question
-    update();
+    
+    if(questionCount === questions.length){
+      renderResults();
+    } else {
+      store.questionCount+=1;
+      update();
+    }
   })
 })
 
-
 function renderWelcome(){
+  document.querySelector("#js-results-form").innerHTML = ""
   document.querySelector("#js-quiz-start-form").innerHTML = (
     "<div>"+
     "<p>"+
@@ -194,7 +202,11 @@ function renderResults(){
   const current = questions[questionCount-1]
   document.querySelector("#js-answer-submit-form").innerHTML = ""
   document.querySelector("#js-results-form").innerHTML = (
-    "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"
+    "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
+    "<input type='submit' value='Try Again' aria-label='Try Again'>"+
+     "<div class='fixed'>"+
+    "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
+    "</div>"
   )
 }
 
