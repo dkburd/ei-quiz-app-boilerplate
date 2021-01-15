@@ -13,90 +13,90 @@ const store = {
       correctAnswer: 'D.'      
     },
 
-    // {
-    //   question: 'How many times did the groundhog, Scooter, bite Bill Murray during filiming?',
-    //   answers: [
-    //     'A. 15',
-    //     'B. 0',
-    //     'C. 2',
-    //     'D. 1',
-    //   ],
-    //   // correctAnswer: 'C. 2'
-    //   correctAnswer: 'C.'      
-    // },
-    // {
-    //   question: 'What time does Phil Connors wake up every morning in the time loop?',
-    //   answers: [
-    //     'A: 7:30am',
-    //     'B. midnight',
-    //     'C. 6:00am',
-    //     'D. 6:30am',
-    //   ],
-    //   // correctAnswer: 'C. 6:00am'
-    //   correctAnswer: 'C.'
-    // },
-    // {
-    //   question: 'Acorrding to Ramis, about how long is Phil stuck in the time loop?',
-    //   answers: [
-    //     'A: 5 years',
-    //     'B. 10,000 days',
-    //     'C. 382 days',
-    //     'D. 10 years'
-    //   ],
-    //   correctAnswer: 'D.'
-    // },
-    //         {
-    //   question: 'What is the name of the character played by the groundhog, Scooter? ',
-    //   answers: [
-    //     'A. Ned Ryerson',
-    //     'B. Punxsutawney Phil',
-    //     'C. Bill Murray',
-    //     'D. Philadelphia Phil',
-    //   ],
-    //   correctAnswer: 'B.'
-    // },
+    {
+      question: 'How many times did the groundhog, Scooter, bite Bill Murray during filiming?',
+      answers: [
+        'A. 15',
+        'B. 0',
+        'C. 2',
+        'D. 1',
+      ],
+      // correctAnswer: 'C. 2'
+      correctAnswer: 'C.'      
+    },
+    {
+      question: 'What time does Phil Connors wake up every morning in the time loop?',
+      answers: [
+        'A: 7:30am',
+        'B. midnight',
+        'C. 6:00am',
+        'D. 6:30am',
+      ],
+      // correctAnswer: 'C. 6:00am'
+      correctAnswer: 'C.'
+    },
+    {
+      question: 'Acorrding to Ramis, about how long is Phil stuck in the time loop?',
+      answers: [
+        'A: 5 years',
+        'B. 10,000 days',
+        'C. 382 days',
+        'D. 10 years'
+      ],
+      correctAnswer: 'D.'
+    },
+            {
+      question: 'What is the name of the character played by the groundhog, Scooter? ',
+      answers: [
+        'A. Ned Ryerson',
+        'B. Punxsutawney Phil',
+        'C. Bill Murray',
+        'D. Philadelphia Phil',
+      ],
+      correctAnswer: 'B.'
+    },
 
 
-    //         {
-    //   question: 'Groundhogs Day is what date?',
-    //   answers: [
-    //     'A: January 3rd',
-    //     'B. February 2nd',
-    //     'C. February 3rd',
-    //     'D. January 22nd'
-    //   ],
-    //   correctAnswer: 'B.'
-    // },
-    //     {
-    //   question: 'Which hobby is Phil not shown taking up during the time loop?',
-    //   answers: [
-    //     'A. figure skating',
-    //     'B. ice sculpting',
-    //     'C. studying French',
-    //     'D. playing piano',
-    //   ],
-    //   correctAnswer: 'A.'
-    // },
-    //     {
-    //   question: 'During the time loop, which song plays at 6:00am on Phils clock radio each morning?',
-    //   answers: [
-    //     'A. I’ve Got You Babe',
-    //     'B. Time Is On My Side',
-    //     'C. Here I Go Again',
-    //     'D. I Keep Coming Back',
-    //   ],
-    //   correctAnswer: 'A.'
-    // },
-    //         {
-    //   question: 'What does Ned Ryerson sell?',
-    //   answers: [
-    //     'A. stationery',
-    //     'B. cars',
-    //     'C. insurance',
-    //     'D. umbrellas',
-    //   ],
-    //   correctAnswer: 'C.'
-    // },
+            {
+      question: 'Groundhogs Day is what date?',
+      answers: [
+        'A: January 3rd',
+        'B. February 2nd',
+        'C. February 3rd',
+        'D. January 22nd'
+      ],
+      correctAnswer: 'B.'
+    },
+        {
+      question: 'Which hobby is Phil not shown taking up during the time loop?',
+      answers: [
+        'A. figure skating',
+        'B. ice sculpting',
+        'C. studying French',
+        'D. playing piano',
+      ],
+      correctAnswer: 'A.'
+    },
+        {
+      question: 'During the time loop, which song plays at 6:00am on Phils clock radio each morning?',
+      answers: [
+        'A. I’ve Got You Babe',
+        'B. Time Is On My Side',
+        'C. Here I Go Again',
+        'D. I Keep Coming Back',
+      ],
+      correctAnswer: 'A.'
+    },
+            {
+      question: 'What does Ned Ryerson sell?',
+      answers: [
+        'A. stationery',
+        'B. cars',
+        'C. insurance',
+        'D. umbrellas',
+      ],
+      correctAnswer: 'C.'
+    },
         {
       question: 'What was the correct letter response to the first question on this quiz?',
       answers: [
@@ -179,7 +179,7 @@ $(function submitAnswer() {
 function renderWelcome(){
   document.querySelector("#js-results-form").innerHTML = ""
   document.querySelector("#js-quiz-start-form").innerHTML = (
-    "<div>"+
+    "<div class='mb-150'>"+
     "<p>"+
     "Hello There! Welcome."+
     "</p>"+
@@ -191,7 +191,7 @@ function renderWelcome(){
     "</p>"+
     "<input type='submit' value='Start' aria-label='start'>"+
     "</div>"+
-    "<div class='fixed'>"+
+    "<div class='img'>"+
     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
     "</div>"
   )
@@ -204,7 +204,7 @@ function renderResults(){
   document.querySelector("#js-results-form").innerHTML = (
     "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
     "<input type='submit' value='Try Again' aria-label='Try Again'>"+
-     "<div class='fixed'>"+
+     "<div class='img-2'>"+
     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
     "</div>"
   )
@@ -249,7 +249,7 @@ function renderQuestion(){
     "<input type='submit' value='Submit' aria-label='submit answer'/>"+
     "</div>"+
     "</div>"+
-    "<div class='fixed'>"+
+    "<div class='img'>"+
     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
     "</div>"
   )
