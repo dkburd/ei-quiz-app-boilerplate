@@ -10,7 +10,6 @@ body {
   margin: 30px;
   word-break: break-word;
   font-size: 150%;
-
 }
 
 .hidden {
@@ -29,14 +28,13 @@ body {
 } */
 
 div.fixed {
-  display:block
-  float:right;
+  display: block;
+  float: right;
   position: fixed;
   bottom: 0;
-  right:0;
+  right: 0;
   width: 500px;
   background: url("images/groundhog.jpeg");
-  align-content:flex-end;
 }
 
 div.fixed img {
@@ -52,6 +50,6 @@ input {
   margin-top: 10px;
 }
 
-form{
-  display:block;
+form {
+  display: block;
 }
