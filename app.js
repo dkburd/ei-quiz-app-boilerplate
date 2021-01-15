@@ -12,7 +12,6 @@ const store = {
       // correctAnswer: 'D. too nice'
       correctAnswer: 'D.'      
     },
-
     {
       question: 'How many times did the groundhog, Scooter, bite Bill Murray during filiming?',
       answers: [
@@ -179,7 +178,7 @@ $(function submitAnswer() {
 function renderWelcome(){
   document.querySelector("#js-results-form").innerHTML = ""
   document.querySelector("#js-quiz-start-form").innerHTML = (
-    "<div class='mb-150'>"+
+    "<div class='text'>"+
     "<p>"+
     "Hello There! Welcome."+
     "</p>"+
@@ -202,9 +201,11 @@ function renderResults(){
   const current = questions[questionCount-1]
   document.querySelector("#js-answer-submit-form").innerHTML = ""
   document.querySelector("#js-results-form").innerHTML = (
+    "<div class='text'>"+
     "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
     "<input type='submit' value='Try Again' aria-label='Try Again'>"+
-     "<div class='img-2'>"+
+    "</div>"+
+    "<div class='img'>"+
     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
     "</div>"
   )
@@ -218,6 +219,7 @@ function renderQuestion(){
     document.querySelector("#js-quiz-start-form").innerHTML = ""
   }
   document.querySelector("#js-answer-submit-form").innerHTML = (
+    "<div class='text'>"+
     "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
     "<p>"+ "Question " + questionCount + "</span>"+ " of 10" +"</p>"+
     "<div class='question'>"+
@@ -247,6 +249,7 @@ function renderQuestion(){
     "</div>"+
     "<div>"+
     "<input type='submit' value='Submit' aria-label='submit answer'/>"+
+    "</div>"+
     "</div>"+
     "</div>"+
     "<div class='img'>"+
