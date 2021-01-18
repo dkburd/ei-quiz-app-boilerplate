@@ -151,25 +151,36 @@ function generateWelcome(){
   return welcomeTemplate;
 }
 
-// TODO : string literal and jquery
-function renderResults(){
-  const{ score} = store
-  document.querySelector("#js-results-form").innerHTML = (
-    "<div class='text'>"+
-    "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
-    "<input type='submit' value='Try Again' aria-label='Try Again'>"+
-    "</div>"+
-    "<div class='img'>"+
-    "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
-    "</div>"
-  )
-}
+// old
+// function renderResults(){
+//   const{ score} = store
+//   document.querySelector("#js-results-form").innerHTML = (
+//     "<div class='text'>"+
+//     "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
+//     "<input type='submit' value='Try Again' aria-label='Try Again'>"+
+//     "</div>"+
+//     "<div class='img'>"+
+//     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
+//     "</div>"
+//   )
+// }
 
-// TODO
+function renderResults(){
+  $("#js-results-form").html(generateResults());
+}
 function generateResults(){
-  if(store.quizOver){
+const{ score, quizOver} = store
+  if(quizOver){
     return(
-      ``
+      `
+      <div class='text'>
+        <p> Your Score is ${score} out of 100 </p>
+       <input type='submit' value='Try Again' aria-label='Try Again'>
+    </div>
+    <div class='img'>
+      <img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>
+    </div>
+      `
     )
   }else{
     return(
@@ -178,6 +189,7 @@ function generateResults(){
     )
   }
 }
+
 
 function renderQuestion(){
   const question = generateQuestion();
@@ -238,6 +250,7 @@ function restartQuiz() {
     store.quizStarted=false;
     store.quizOver=false;
     renderWelcome();
+    renderResults();
   })
 }
 
