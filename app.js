@@ -1,5 +1,4 @@
 const store = {
-  // 5 or more questions are required
   questions: [
     {
       question: 'Director Harold Ramis originally wanted Tom Hanks for the lead role, but decided against it because Hanks was ...',
@@ -9,7 +8,6 @@ const store = {
         'C. unwilling to accomedate production scheules',
         'D. too nice',
       ],
-      // correctAnswer: 'D. too nice'
       correctAnswer: 'D.'      
     },
     {
@@ -20,7 +18,6 @@ const store = {
         'C. 2',
         'D. 1',
       ],
-      // correctAnswer: 'C. 2'
       correctAnswer: 'C.'      
     },
     {
@@ -31,7 +28,6 @@ const store = {
         'C. 6:00am',
         'D. 6:30am',
       ],
-      // correctAnswer: 'C. 6:00am'
       correctAnswer: 'C.'
     },
     {
@@ -44,7 +40,7 @@ const store = {
       ],
       correctAnswer: 'D.'
     },
-            {
+    {
       question: 'What is the name of the character played by the groundhog, Scooter? ',
       answers: [
         'A. Ned Ryerson',
@@ -54,10 +50,8 @@ const store = {
       ],
       correctAnswer: 'B.'
     },
-
-
-            {
-      question: 'Groundhogs Day is what date?',
+    {
+      question: 'Groundhog\'s Day is what date?',
       answers: [
         'A: January 3rd',
         'B. February 2nd',
@@ -66,7 +60,7 @@ const store = {
       ],
       correctAnswer: 'B.'
     },
-        {
+    {
       question: 'Which hobby is Phil not shown taking up during the time loop?',
       answers: [
         'A. figure skating',
@@ -76,8 +70,8 @@ const store = {
       ],
       correctAnswer: 'A.'
     },
-        {
-      question: 'During the time loop, which song plays at 6:00am on Phils clock radio each morning?',
+    {
+      question: 'During the time loop, which song plays at 6:00am on Phil\'s clock radio each morning?',
       answers: [
         'A. I’ve Got You Babe',
         'B. Time Is On My Side',
@@ -86,7 +80,7 @@ const store = {
       ],
       correctAnswer: 'A.'
     },
-            {
+    {
       question: 'What does Ned Ryerson sell?',
       answers: [
         'A. stationery',
@@ -96,7 +90,7 @@ const store = {
       ],
       correctAnswer: 'C.'
     },
-        {
+    {
       question: 'What was the correct letter response to the first question on this quiz?',
       answers: [
         'A. C',
@@ -109,49 +103,170 @@ const store = {
   ],
 
   quizStarted: false,
+  quizOver:false,
   questionCount: 1,
   score: 0
 };
 
+function renderQuiz(){
+  const quiz = generateQuiz();
+  $(".container").append(quiz);
+}
 
-//add the starting text and button on load
-$(document).ready(function() {
-  
-  $(".container").append( 
-    "<form id='js-quiz-start-form'></form>"+
-    "<form id='js-answer-submit-form'></form>"+
-    "<form id='js-results-form'></form>"
-   );
+function generateQuiz(){
+  return (
+    `
+    <form id='js-quiz-start-form'></form>
+    <form id='js-answer-submit-form'></form>
+    <form id='js-results-form'></form>
+    `
+  )
+}
 
-  if(!store.quizStarted){
-    renderWelcome();
+function renderWelcome(){
+  $("#js-quiz-start-form").html(generateWelcome());
+}
+
+function generateWelcome(){
+  const welcomeTemplate = !store.quizStarted ? 
+  `
+  <div class='text'>
+    <p>
+      Hello There! Welcome.
+    </p>
+    <p>
+      This quiz will test your knowledge of the 1993 film, <em>Groundhog's Day</em>
+    </p>
+    <p>
+      The movie so good you'll watch it again <em>and again and again and...</em>
+    </p>
+    <input type='submit' value='Start' aria-label='start'>
+  </div>
+  <div class='img'>
+    <img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>
+  </div>
+  `
+  :""
+
+  return welcomeTemplate;
+}
+
+// old
+// function renderResults(){
+//   const{ score} = store
+//   document.querySelector("#js-results-form").innerHTML = (
+//     "<div class='text'>"+
+//     "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
+//     "<input type='submit' value='Try Again' aria-label='Try Again'>"+
+//     "</div>"+
+//     "<div class='img'>"+
+//     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
+//     "</div>"
+//   )
+// }
+
+function renderResults(){
+  $("#js-results-form").html(generateResults());
+}
+function generateResults(){
+const{ score, quizOver} = store
+  if(quizOver){
+    return(
+      `
+      <div class='text'>
+        <p> Your Score is ${score} out of 100 </p>
+       <input type='submit' value='Try Again' aria-label='Try Again'>
+    </div>
+    <div class='img'>
+      <img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>
+    </div>
+      `
+    )
+  }else{
+    return(
+      `
+      `
+    )
   }
-})
+}
 
+
+function renderQuestion(){
+  const question = generateQuestion();
+  $("#js-answer-submit-form").html(question);
+}
+
+function generateQuestion(){
+  const{ score, questions, quizOver, questionCount} = store
+  const current = questions[questionCount-1]
+
+  const questionTemplate = !quizOver ?
+  `<div class='text'>
+  <p> Your Score is   ${score}  </span>   out of 100  </p>
+  <p> Question   ${questionCount}  </span>  of 10 </p>
+  <div class='question'>
+  <p>${current.question}</p
+  </div>
+  <div class='answers'>
+  <ol class='answers-list'>
+  <li>
+  <input type='radio' name='answer' value=${current.answers[0]} data-answer=answerA required> <label for='answer'/>
+  ${current.answers[0]}
+  </label>
+  </li>
+  <li>
+  <input type='radio' name='answer' value=${current.answers[1]} data-answer=answerB> <label for='answer'/>
+  ${current.answers[1]}
+  </label>
+  </li>
+  <li>
+  <input type='radio' name='answer' value=${current.answers[2]} data-answer=answerC> <label for='answer'/>
+  ${current.answers[2]}
+  </label>
+  <li>
+  <input type='radio' name='answer' value=${current.answers[3]} data-answer=answerD> <label for='answer'/>
+  ${current.answers[3]}
+  </label>
+  </ol>
+  </div>
+  <div>
+  <input type='submit' value='Submit' aria-label='submit answer'/>
+  </div>
+  </div>
+  </div>
+  <div class='img'>
+  <img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>
+  </div>`
+  : ""
+  return questionTemplate;
+}
 
 //restart quiz
-$(function startQuiz() {
+function restartQuiz() {
   $("#js-results-form").submit(event => {
     event.preventDefault();
     store.score=0;
     store.questionCount=1;
     store.quizStarted=false;
+    store.quizOver=false;
     renderWelcome();
+    renderResults();
   })
-})
+}
 
 // start quiz
-$(function startQuiz() {
+function startQuiz() {
   $("#js-quiz-start-form").submit(event => {
 //  stop the default form submission behavior
     event.preventDefault();
     store.quizStarted=true;
-    update();
+    renderWelcome();
+    renderQuestion();
   })
-})
+}
 
 //submit answer
-$(function submitAnswer() {
+function submitAnswer() {
   $("#js-answer-submit-form").submit(event => {
 //  stop the default form submission behavior
     event.preventDefault();
@@ -167,100 +282,22 @@ $(function submitAnswer() {
     }
     
     if(questionCount === questions.length){
+      store.quizOver=true;
+      renderQuestion();
       renderResults();
     } else {
       store.questionCount+=1;
-      update();
+      renderQuestion();
     }
   })
-})
-
-function renderWelcome(){
-  document.querySelector("#js-results-form").innerHTML = ""
-  document.querySelector("#js-quiz-start-form").innerHTML = (
-    "<div class='text'>"+
-    "<p>"+
-    "Hello There! Welcome."+
-    "</p>"+
-    "<p>"+
-    "This quiz will test your knowledge of the 1993 film, <em>Groundhog's Day</em>"+
-    "</p>"+
-      "<p>"+
-    "The movie so good you'll watch it again <em>and again and again and...</em>"+
-    "</p>"+
-    "<input type='submit' value='Start' aria-label='start'>"+
-    "</div>"+
-    "<div class='img'>"+
-    "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
-    "</div>"
-  )
 }
 
-function renderResults(){
-  const{ score, questions, quizStarted, questionCount} = store
-  const current = questions[questionCount-1]
-  document.querySelector("#js-answer-submit-form").innerHTML = ""
-  document.querySelector("#js-results-form").innerHTML = (
-    "<div class='text'>"+
-    "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
-    "<input type='submit' value='Try Again' aria-label='Try Again'>"+
-    "</div>"+
-    "<div class='img'>"+
-    "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
-    "</div>"
-  )
+function handleQuiz(){
+  renderQuiz();
+  renderWelcome();
+  restartQuiz();
+  startQuiz();
+  submitAnswer();
 }
 
-// ask mentro about queryselectors
-function renderQuestion(){
-  const{ score, questions, quizStarted, questionCount} = store
-  const current = questions[questionCount-1]
-  if(quizStarted){
-    document.querySelector("#js-quiz-start-form").innerHTML = ""
-  }
-  document.querySelector("#js-answer-submit-form").innerHTML = (
-    "<div class='text'>"+
-    "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
-    "<p>"+ "Question " + questionCount + "</span>"+ " of 10" +"</p>"+
-    "<div class='question'>"+
-    "<p>"+current.question+"</p"+
-    "</div>"+
-    "<div class='answers'>"+
-    "<ol class='answers-list'>"+
-    "<li>"+
-    "<input type='radio' name='answer' value="+current.answers[0]+" data-answer=answerA required> <label for='answer'/>"+
-    current.answers[0]+
-    "</label>"+
-    "</li>"+
-    "<li>"+
-    "<input type='radio' name='answer' value="+current.answers[1]+" data-answer=answerB> <label for='answer'/>"+
-    current.answers[1]+
-    "</label>"+
-    "</li>"+
-    "<li>"+
-    "<input type='radio' name='answer' value="+current.answers[2]+" data-answer=answerC> <label for='answer'/>"+
-    current.answers[2]+
-    "</label>"+
-    "<li>"+
-    "<input type='radio' name='answer' value="+current.answers[3]+" data-answer=answerD> <label for='answer'/>"+
-    current.answers[3]+
-    "</label>"+
-    "</ol>"+
-    "</div>"+
-    "<div>"+
-    "<input type='submit' value='Submit' aria-label='submit answer'/>"+
-    "</div>"+
-    "</div>"+
-    "</div>"+
-    "<div class='img'>"+
-    "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
-    "</div>"
-  )
-}
-
-
-function update() {
-  // console.log(store.questionCount, store.questions);
-  renderQuestion();
-
-}
+$(handleQuiz);
