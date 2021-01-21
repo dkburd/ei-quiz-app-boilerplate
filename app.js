@@ -5,13 +5,13 @@ const store = {
       answers: [
         'A. too young',
         'B. not well known',
-        'C. unwilling to accomedate production scheules',
+        'C. unwilling to accommodate production schedules',
         'D. too nice',
       ],
       correctAnswer: 'D.'      
     },
     {
-      question: 'How many times did the groundhog, Scooter, bite Bill Murray during filiming?',
+      question: 'How many times did the groundhog, Scooter, bite Bill Murray during filimming?',
       answers: [
         'A. 15',
         'B. 0',
@@ -51,7 +51,7 @@ const store = {
       correctAnswer: 'B.'
     },
     {
-      question: 'Groundhog\'s Day is what date?',
+      question: 'Groundhog Day is what date?',
       answers: [
         'A: January 3rd',
         'B. February 2nd',
@@ -73,10 +73,10 @@ const store = {
     {
       question: 'During the time loop, which song plays at 6:00am on Phil\'s clock radio each morning?',
       answers: [
-        'A. I’ve Got You Babe',
-        'B. Time Is On My Side',
-        'C. Here I Go Again',
-        'D. I Keep Coming Back',
+        'A. \"I’ve Got You Babe\"',
+        'B. \"Time Is On My Side\"',
+        'C. \"Here I Go Again\"',
+        'D. \"I Keep Coming Back\"',
       ],
       correctAnswer: 'A.'
     },
@@ -135,7 +135,7 @@ function generateWelcome(){
       Hello There! Welcome.
     </p>
     <p>
-      This quiz will test your knowledge of the 1993 film, <em>Groundhog's Day</em>
+      This quiz will test your knowledge of the 1993 film, <em>Groundhog Day</em>.
     </p>
     <p>
       The movie so good you'll watch it again <em>and again and again and...</em>
@@ -151,19 +151,6 @@ function generateWelcome(){
   return welcomeTemplate;
 }
 
-// old
-// function renderResults(){
-//   const{ score} = store
-//   document.querySelector("#js-results-form").innerHTML = (
-//     "<div class='text'>"+
-//     "<p>"+ "Your Score is " + score + "</span>" + " out of 100" + "</p>"+
-//     "<input type='submit' value='Try Again' aria-label='Try Again'>"+
-//     "</div>"+
-//     "<div class='img'>"+
-//     "<img src='images/groundhogone.png' alt='goundhog' title='goundhog with shadow'>"+
-//     "</div>"
-//   )
-// }
 
 function renderResults(){
   $("#js-results-form").html(generateResults());
